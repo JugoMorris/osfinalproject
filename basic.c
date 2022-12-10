@@ -43,16 +43,16 @@ void read_mode(int fd, unsigned int block_size, unsigned int block_count) {
         buffer = (unsigned int*)malloc(block_size * sizeof(char));
     }
 
-    unsigned int readCount;
+    unsigned int bytes_read;
     unsigned int counter = 0;
     unsigned int checksum = 0;
 
     // read from the file until we have nothing to read
-    while ((readCount = read(fd, buffer, block_size)) > 0 && counter < block_count) {
+    while ((bytes_read = read(fd, buffer, block_size)) > 0 && counter < block_count) {
         counter++;
-        if (readCount >= 4) {
+        if (bytes_read >= 4) {
             // if we have read more than 4 bytes, normal xor
-            checksum = checksum ^ xorbuf(buffer, readCount / 4);
+            checksum = checksum ^ xorbuf(buffer, bytes_read / 4);
         } else {
             // if we have less than 4 bytes read, just calculate once.
             checksum = checksum ^ xorbuf(buffer, 1);

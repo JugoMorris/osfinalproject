@@ -12,11 +12,11 @@
 int main(int argc, char *argv[]) {
 
     int fd; // the file descriptor
-    double start, end, deal_time;
+    double start, end, wall_time;
     
 
     if (argc != 3) {
-        panic("Usage: ./part2 <filename> <block_size>");
+        panic("Usage: ./run2 <filename> <block_size>");
     }
     // get the filename, blocksize and blockcount from the argument
     char *filename = argv[1];
@@ -40,10 +40,10 @@ int main(int argc, char *argv[]) {
         read_mode(fd, block_size, block_count);
         close(fd);
         end = now();
-        deal_time = end - start;
+        wall_time = end - start;
         printf("Here are the block_count: %u\n", block_count);
-        printf("Finished file operation in %f seconds\n", deal_time);
-        if (deal_time > 5) {
+        printf("Finished file operation in %f seconds\n", wall_time);
+        if (wall_time > 5) {
             
             break;
         }

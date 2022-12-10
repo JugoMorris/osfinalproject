@@ -13,7 +13,7 @@
 int main(int argc, char *argv[]) {
 
     int fd; // the file descriptor
-    double start, end, real_time;
+    double start, end, wall_time;
     
 
     if (argc != 2) {
@@ -33,20 +33,20 @@ int main(int argc, char *argv[]) {
 
     // use the fastest block_size we found
     unsigned int block_size = 1048576;
-    unsigned int readCount = 0;
+    unsigned int bytes_read = 0;
     unsigned int checksum = 0;
 
     // init buffer
     unsigned int *buffer = (unsigned int*)malloc((block_size / 4) * sizeof(unsigned int));
 
-    while ((readCount = read(fd, buffer, block_size)) > 0) {
-        checksum = checksum ^ xorbuf(buffer, readCount / 4);
+    while ((bytes_read = read(fd, buffer, block_size)) > 0) {
+        checksum = checksum ^ xorbuf(buffer, bytes_read / 4);
     }
     // close the file
     close(fd);
     end = now();
-    real_time = end - start;
+    wall_time = end - start;
     printf("%08x\n", checksum);
-    printf("Finished file operation in %f seconds\n", real_time);
+    printf("Finished file operation in %f seconds\n", wall_time);
     return 0;
 }

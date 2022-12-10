@@ -12,12 +12,12 @@
 int main(int argc, char *argv[]) {
 
     int fd; // the file descriptor
-    double start, end, deal_time;
+    double start, end, wall_time;
     double raw_performance,file_size;
     
 
     if (argc != 5) {
-        panic("Usage: ./final_proj <filename> [-r|-w] <block_size> <block_count>");
+        panic("Usage: ./run <filename> [-r|-w|-s] <block_size> <block_count>");
     }
     // get the filename, blocksize and blockcount from the argument
     char *filename = argv[1];
@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
 	unsigned int block_count = (unsigned int)count;
 
     srandom(time(NULL));
-    // see if it is a read or write mode.
+    // check the flag and run read, write or lseek mode
     start = now();
     if ((strcmp(argv[2], "-r") == 0)) {
         // open file failed, panic and return
@@ -43,7 +43,6 @@ int main(int argc, char *argv[]) {
         printf("File is opened correctly!\n");
 
         // run in read mode
-        
         read_mode(fd, block_size, block_count);
         
     } else if ((strcmp(argv[2], "-w") == 0)) {
@@ -60,16 +59,16 @@ int main(int argc, char *argv[]) {
             panic("Can not open file!!!");
         }
         printf("File is opened correctly!\n");
-        // run in write mode
+        // run in lseek mode
         lseek_mode(fd, block_size, block_count);
     }
     close(fd);
     end = now();
-    deal_time = end - start;
-    printf("Finished file operation in %f seconds\n", deal_time);
+    wall_time = end - start;
+    printf("Finished file operation in %f seconds\n", wall_time);
     file_size = (double) block_size * block_count;
-    raw_performance = file_size/deal_time/1048576;
+    raw_performance = file_size/wall_time/1048576;
     printf("File operation is by %.2f MiB/s\n", raw_performance);
-    printf("File operation is by %.2f B/s\n", block_count/deal_time);
+    printf("File operation is by %.2f B/s\n", block_count/wall_time);
     return 0;
 }
