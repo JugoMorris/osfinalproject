@@ -28,7 +28,6 @@ int main(int argc, char *argv[]) {
 
     while (1) {
         srandom(time(NULL));
-        // see if it is a read or write mode.
         start = now();
         // open file failed, panic and return
         if ((fd = open(filename, O_RDONLY)) < 0) {
@@ -44,10 +43,11 @@ int main(int argc, char *argv[]) {
         printf("Here are the block_count: %u\n", block_count);
         printf("Finished file operation in %f seconds\n", wall_time);
         if (wall_time > 5) {
-            
             break;
         }
         block_count *= 2;
     }
+
+    printf("\nThe reasonable file size for block_size=%u is %u\n", block_size, block_count);
     return 0;
 }

@@ -58,8 +58,7 @@ void read_mode(int fd, unsigned int block_size, unsigned int block_count) {
             checksum = checksum ^ xorbuf(buffer, 1);
         }
     }
-
-    printf("%08x\n", checksum);
+    printf("XOR result: %08x\n", checksum);
 }
 
 void write_mode(int fd, unsigned int block_size, unsigned int block_count) {

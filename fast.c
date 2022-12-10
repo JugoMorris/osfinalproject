@@ -34,19 +34,23 @@ int main(int argc, char *argv[]) {
     // use the fastest block_size we found
     unsigned int block_size = 1048576;
     unsigned int bytes_read = 0;
+    unsigned int file_size = 0;
     unsigned int checksum = 0;
 
     // init buffer
     unsigned int *buffer = (unsigned int*)malloc((block_size / 4) * sizeof(unsigned int));
 
     while ((bytes_read = read(fd, buffer, block_size)) > 0) {
+        file_size += bytes_read;
         checksum = checksum ^ xorbuf(buffer, bytes_read / 4);
     }
     // close the file
     close(fd);
     end = now();
     wall_time = end - start;
-    printf("%08x\n", checksum);
+    printf("XOR result: %08x\n", checksum);
+    printf("Block size: %llu\n", block_size);
+    printf("Read speed: %.2f MiB/s\n", file_size/wall_time/1048576);
     printf("Finished file operation in %f seconds\n", wall_time);
     return 0;
 }

@@ -68,7 +68,8 @@ int main(int argc, char *argv[]) {
     printf("Finished file operation in %f seconds\n", wall_time);
     file_size = (double) block_size * block_count;
     raw_performance = file_size/wall_time/1048576;
-    printf("File operation is by %.2f MiB/s\n", raw_performance);
-    printf("File operation is by %.2f B/s\n", block_count/wall_time);
+    
+    printf("Read speed: %.2f MiB/s\n", raw_performance);
+    printf("Number of system calls per second: %.2f B/s\n", block_count/wall_time);
     return 0;
 }
