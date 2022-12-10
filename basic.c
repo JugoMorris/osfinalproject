@@ -40,7 +40,7 @@ void read_mode(int fd, unsigned int block_size, unsigned int block_count) {
         buffer = (unsigned int*)malloc(1 * sizeof(unsigned int));
     } else {
         // otherwise, since it is multiple of 4 bytes, we have blocksize / 4 ints
-        buffer = (unsigned int*)malloc((block_size / 4) * sizeof(unsigned int));
+        buffer = (unsigned int*)malloc(block_size * sizeof(char));
     }
 
     unsigned int readCount;
@@ -71,5 +71,12 @@ void write_mode(int fd, unsigned int block_size, unsigned int block_count) {
     // write block_count times
     for (int i = 0; i < block_count; i++) {
         write(fd, sentence, (size_t)block_size);
+    }
+}
+
+void lseek_mode(int fd, unsigned int block_size, unsigned int block_count) {
+    // malloc block_size of buffer to write
+    for (int i = 0; i < block_count; i++) {
+        lseek(fd, i*block_size, SEEK_CUR);
     }
 }
