@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
         if ((fd = open(filename, O_RDONLY)) < 0) {
             panic("Can not open file!!!");
         }
-        printf("File is opened correctly!\n");
+        printf("File is opened successfully!\n");
 
         // run in read mode
         read_mode(fd, block_size, block_count);
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
         if ((fd = open(filename, O_RDWR | O_APPEND | O_CREAT, S_IRWXU)) < 0) {
             panic("Can not open file!!!");
         }
-        printf("File is opened correctly!\n");
+        printf("File is opened successfully!\n");
         // run in write mode
         write_mode(fd, block_size, block_count);
     } else if ((strcmp(argv[2], "-s") == 0)) {
@@ -58,7 +58,7 @@ int main(int argc, char *argv[]) {
         if ((fd = open(filename, O_RDONLY)) < 0) {
             panic("Can not open file!!!");
         }
-        printf("File is opened correctly!\n");
+        printf("File is opened correctsuccessfullyly!\n");
         // run in lseek mode
         lseek_mode(fd, block_size, block_count);
     }

@@ -11,7 +11,7 @@
 
 int main(int argc, char *argv[]) {
 
-    int fd; // the file descriptor
+    int fd;
     double start, end, wall_time;
     
 
@@ -39,17 +39,18 @@ int main(int argc, char *argv[]) {
     unsigned int bestblock = 0;
     float besttime = 1000000000.0;
     while (1) {
-        // if(block_count < 1) break;
-        if(block_size > 4194304) break;
+// GENERAL TEST
+        if(block_count < 1) break;
+// PRECISE TEST
+        // if(block_size > 4194304) break;
+
         srandom(time(NULL));
         start = now();
-        // open file failed, panic and return
         if ((fd = open(filename, O_RDONLY)) < 0) {
             panic("Can not open file!!!");
         }
-        printf("File is opened correctly!\n");
+        printf("File is opened successfully!\n");
 
-        // run in read mode and find the file size
         read_mode(fd, block_size, block_count);
         close(fd);
         end = now();

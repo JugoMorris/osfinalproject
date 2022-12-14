@@ -11,7 +11,7 @@
 
 int main(int argc, char *argv[]) {
 
-    int fd; // the file descriptor
+    int fd;
     double start, end, wall_time;
     
 
@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
         if ((fd = open(filename, O_RDONLY)) < 0) {
             panic("Can not open file!!!");
         }
-        printf("File is opened correctly!\n");
+        printf("File is opened successfully!\n");
 
         // run in read mode and find the file size
         read_mode(fd, block_size, block_count);
