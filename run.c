@@ -70,6 +70,7 @@ int main(int argc, char *argv[]) {
     raw_performance = file_size/wall_time/1048576;
     
     printf("Read speed: %.2f MiB/s\n", raw_performance);
-    printf("Number of system calls per second: %.2f B/s\n", block_count/wall_time);
+    // printf("Number of system calls per second: %.2f B/s\n", block_count/wall_time);
+    printf("Number of system calls %d in %.2f second\n", block_count, wall_time);
     return 0;
 }
